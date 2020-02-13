@@ -1,17 +1,19 @@
 import flask
 import requests_oauthlib
 import os
+import requests
 
-CLIENT_ID = "Your ID"
-CLIENT_SECRET = "Your Secret"
+
+CLIENT_ID = "94302061300-8mt0r2qhicblghvr12s7i5e10mlgo0p0.apps.googleusercontent.com"
+CLIENT_SECRET = "eKwvQT9xuIKF9fv4EM5aPBDF"
 redirect_uri = "http://localhost:5000/callback"
 
 AUTHORIZATION_BASE_URL = "https://accounts.google.com/o/oauth2/auth"
 TOKEN_URL = "https://oauth2.googleapis.com/token"
 USERINFO_URL = "https://www.googleapis.com/oauth2/v1/userinfo?alt=json"
-SCOPE_URL = "https://www.googleapis.com/auth/books"
+SCOPE_URL = ["openid", "email", "profile"]
 
-# This allows us to use a plain HTTP callback
+
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
 app = flask.Flask(__name__)
@@ -40,8 +42,11 @@ def callback():
     simplelogin.fetch_token(
         TOKEN_URL, client_secret=CLIENT_SECRET, authorization_response=flask.request.url
     )
-    print(simplelogin)
-    return f"""
+    ID_Token = simplelogin.token.get('id_token')
+    URL = "https://oauth2.googleapis.com/tokeninfo?id_token=" + str(ID_Token)
+    req = requests.get(url=URL)
+    print(req.content)
+    return """
     Ok
     """
 
