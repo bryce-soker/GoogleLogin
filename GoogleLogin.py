@@ -4,8 +4,8 @@ import os
 import requests
 
 
-CLIENT_ID = "94302061300-8mt0r2qhicblghvr12s7i5e10mlgo0p0.apps.googleusercontent.com"
-CLIENT_SECRET = "eKwvQT9xuIKF9fv4EM5aPBDF"
+CLIENT_ID = "clientid"
+CLIENT_SECRET = "secretkey"
 redirect_uri = "http://localhost:5000/callback"
 
 AUTHORIZATION_BASE_URL = "https://accounts.google.com/o/oauth2/auth"
